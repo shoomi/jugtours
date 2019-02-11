@@ -4,17 +4,23 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name = "user")
 public class User {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    @Column(name = "user_id")
+    private Integer id;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "email")
     private String email;
 }

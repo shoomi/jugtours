@@ -17,15 +17,30 @@ public class Group {
 
     @Id
     @GeneratedValue
+    @Column(name = "group_id")
     private Long id;
+
     @NonNull
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "address")
     private String address;
+
+    @Column(name = "city")
     private String city;
+
+    @Column(name = "stateOrProvince")
     private String stateOrProvince;
+
+    @Column(name = "country")
     private String country;
+
+    @Column(name = "postalCode")
     private String postalCode;
-    @ManyToOne(cascade=CascadeType.PERSIST)
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
 
     @OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
