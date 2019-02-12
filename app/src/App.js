@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import './App.css';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Home from './pages/Home';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import GroupList from './pages/GroupList';
 import GroupEdit from "./pages/GroupEdit";
 

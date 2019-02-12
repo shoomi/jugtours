@@ -11,9 +11,9 @@ public class GroupServiceImpl extends AbstractService<Group, Long, GroupReposito
     GroupRepository groupRepository;
 
     @Autowired
-    protected GroupServiceImpl(GroupRepository repository, GroupRepository groupRepository) {
+    protected GroupServiceImpl(GroupRepository repository) {
         super(repository);
-        this.groupRepository = groupRepository;
+        this.groupRepository = repository;
     }
 
     public Group findByName(String name) {
