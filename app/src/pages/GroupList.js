@@ -1,13 +1,17 @@
-import React, { Component } from 'react';
-import { Button, ButtonGroup, Container, Table } from 'reactstrap';
+import React, {Component} from 'react';
+import {Button, ButtonGroup, Container, Navbar, Table} from 'reactstrap';
 import AppNavbar from './AppNavbar';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 class GroupList extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {groups: [], isLoading: true};
+        this.state = {
+            groups: [],
+            resGroups: [],
+            isLoading: true
+        };
         this.remove = this.remove.bind(this);
     }
 
@@ -16,7 +20,7 @@ class GroupList extends Component {
 
         fetch('api/groups')
             .then(response => response.json())
-            .then(data => this.setState({groups: data, isLoading: false}));
+            .then(data => this.setState({groups: data, resGroups: data, isLoading: false}))
     }
 
     async remove(id) {
@@ -28,8 +32,22 @@ class GroupList extends Component {
             }
         }).then(() => {
             let updatedGroups = [...this.state.groups].filter(i => i.id !== id);
-            this.setState({groups: updatedGroups});
+            this.setState({groups: updatedGroups, resGroups: updatedGroups});
         });
+    }
+
+    handleChange(e) {
+        if (e.target.value !== "") {
+            this.setState({
+                groups: this.state.groups.filter(item => {
+                    return item.name.toLowerCase().includes(e.target.value.toLowerCase());
+                })
+            });
+        } else {
+            this.setState({
+                groups: this.state.resGroups
+            });
+        }
     }
 
     render() {
@@ -63,6 +81,7 @@ class GroupList extends Component {
         return (
             <div>
                 <AppNavbar/>
+                <input type="text" className="input" onChange={this.handleChange.bind(this)} placeholder="Search..."/>
                 <Container fluid>
                     <div className="float-right">
                         <Button color="success" tag={Link} to="/groups/new">Add Group</Button>
